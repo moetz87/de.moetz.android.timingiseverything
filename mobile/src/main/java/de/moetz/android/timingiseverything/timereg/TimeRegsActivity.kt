@@ -1,6 +1,7 @@
 package de.moetz.android.timingiseverything.timereg
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,24 +11,27 @@ import android.widget.ListView
 import android.widget.TextView
 import de.moetz.android.timingiseverything.BaseActivity
 import de.moetz.android.timingiseverything.R
-import java.util.*
+import de.moetz.android.timingiseverything.database.AppDatabase
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TimeRegsActivity : BaseActivity("Zeiten-Management") {
 
-    private val timeregs = listOf(
-            TimeRegistration("MOE", Date(), "QES", 4.0, "abc"),
-            TimeRegistration("MOE", Date(), "OPB2", 4.5, "def"),
-            TimeRegistration("MOE", Date(), "OPB2", 5.0, "ghi"),
-            TimeRegistration("MOE", Date(), "QES", 12.3, "")
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.timeregs)
-        val lv = findViewById<ListView>(R.id.timeregs_list)
-        lv.adapter = TimeRegsListAdapter(this, this.timeregs)
+
+        AsyncTask.execute({
+            this.updateView(AppDatabase.get().timeregDao().get())
+        })
+    }
+
+    private fun updateView(timeregs: List<TimeRegistration>) {
+        runOnUiThread({
+            val listview = findViewById<ListView>(R.id.timeregs_list)
+            listview.adapter = TimeRegsListAdapter(this, timeregs)
+        })
     }
 
     private class TimeRegsListAdapter(context: Context, private val timeregs: List<TimeRegistration>) : BaseAdapter() {
