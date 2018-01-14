@@ -1,5 +1,6 @@
 package de.moetz.android.timingiseverything
 
+import android.content.Intent
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -10,13 +11,12 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import de.moetz.android.timingiseverything.timereg.TimeRegsActivity
 import kotlinx.android.synthetic.main.base.*
 import kotlinx.android.synthetic.main.base_navigation.*
 
 
-abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    protected abstract val toolbarText: String;
+abstract class BaseActivity(private val toolbarText: String) : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun setContentView(layoutResID: Int) {
         val rootView = layoutInflater.inflate(R.layout.base, null) as DrawerLayout
@@ -24,9 +24,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         layoutInflater.inflate(layoutResID, contentContainer, true)
         super.setContentView(rootView)
 
-        this.title = this.toolbarText
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        setSupportActionBar(toolbar)
+        toolbar.title = this.toolbarText
+        toolbar.inflateMenu(R.menu.main)
 
         val navDrawerToggle = ActionBarDrawerToggle(
                 this, root_view, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -57,8 +57,11 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.nav_home -> {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
             R.id.nav_timereg_show -> {
-
+                startActivity(Intent(this, TimeRegsActivity::class.java))
             }
         }
         root_view.closeDrawer(GravityCompat.START)
