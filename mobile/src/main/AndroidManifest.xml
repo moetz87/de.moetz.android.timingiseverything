@@ -7,8 +7,8 @@
     <application
         android:name=".ApplicationContext"
         android:allowBackup="true"
-        android:label="@string/app_name"
         android:icon="@drawable/logo"
+        android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,6 +24,7 @@
         <activity
             android:name=".timereg.TimeRegsActivity"
             android:label="@string/title_activity_time_reg" />
+        <activity android:name=".timereg.AddTimeRegActivity"></activity>
     </application>
 
 </manifest>

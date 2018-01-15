@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import de.moetz.android.timingiseverything.timereg.AddTimeRegActivity
 import de.moetz.android.timingiseverything.timereg.TimeRegsActivity
 import kotlinx.android.synthetic.main.base.*
 import kotlinx.android.synthetic.main.base_navigation.*
@@ -62,6 +63,9 @@ abstract class BaseActivity(private val toolbarText: String) : AppCompatActivity
             }
             R.id.nav_timereg_show -> {
                 startActivity(Intent(this, TimeRegsActivity::class.java))
+            }
+            R.id.nav_timereg_add -> {
+                startActivity(Intent(this, AddTimeRegActivity::class.java))
             }
         }
         root_view.closeDrawer(GravityCompat.START)

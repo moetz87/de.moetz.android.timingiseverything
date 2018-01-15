@@ -5,13 +5,14 @@ import java.util.*
 
 
 @Entity
-data class TimeRegistration(val acronym: String,
-                            val date: Date,
+data class TimeRegistration(val date: Date,
                             val project: String,
-                            val time: Double) {
+                            val time: Double,
+                            val remarks: String) {
 
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
-    var remarks: String = ""
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+    var acronym: String = "MOE"
 
 }
 

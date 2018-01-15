@@ -2,15 +2,13 @@ package de.moetz.android.timingiseverything.database
 
 import android.arch.persistence.db.SupportSQLiteOpenHelper
 import android.arch.persistence.room.*
+import android.util.Log
 import de.moetz.android.timingiseverything.ApplicationContext
 import de.moetz.android.timingiseverything.timereg.TimeRegistration
 import de.moetz.android.timingiseverything.timereg.TimeRegistrationDao
-import android.arch.persistence.db.SupportSQLiteDatabase
-import android.arch.persistence.room.migration.Migration
-import android.util.Log
 
 
-@Database(entities = arrayOf(TimeRegistration::class), version = 5)
+@Database(entities = arrayOf(TimeRegistration::class), version = 6)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
