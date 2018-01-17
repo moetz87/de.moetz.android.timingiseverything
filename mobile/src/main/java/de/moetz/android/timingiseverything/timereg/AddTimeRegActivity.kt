@@ -2,26 +2,30 @@ package de.moetz.android.timingiseverything.timereg
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.text.Editable
+import android.support.v7.app.AppCompatActivity
 import android.text.InputType
 import android.util.Log
 import android.widget.EditText
-import android.widget.Toast
-import de.moetz.android.timingiseverything.BaseActivity
+import de.moetz.android.timingiseverything.BR
 import de.moetz.android.timingiseverything.R
 import de.moetz.android.timingiseverything.database.AppDatabase
-import java.text.SimpleDateFormat
-import java.util.*
+import de.moetz.android.timingiseverything.databinding.TimeregAddBinding
+import org.joda.time.LocalDate
 
 
-class AddTimeRegActivity : BaseActivity("Zeiterfassung") {
+class AddTimeRegActivity : AppCompatActivity() {
+
+    val timereg = TimeRegistration.default()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.timereg_add)
+        val binding: TimeregAddBinding = DataBindingUtil.setContentView(this, R.layout.timereg_add)
+        binding.setVariable(BR.timereg, timereg)
+        binding.executePendingBindings()
 
         initDateField(R.id.addtimereg_date)
         findViewById<FloatingActionButton>(R.id.addtimereg_savebutton).setOnClickListener { onSaveClicked() }
@@ -31,8 +35,8 @@ class AddTimeRegActivity : BaseActivity("Zeiterfassung") {
         val dateField = findViewById<EditText>(id)
         dateField.inputType = InputType.TYPE_NULL
 
-        val now = Calendar.getInstance()
-        val datePicker = DatePickerDialog(this, onDatePicked(id), now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH))
+        val datePicker = DatePickerDialog(this, onDatePicked(id),
+                LocalDate.now().year, LocalDate.now().monthOfYear - 1, LocalDate.now().dayOfMonth)
 
         dateField.setOnFocusChangeListener { view, b -> if (b) this.openDatePickerIfNotOpened(datePicker) }
         dateField.setOnClickListener({ this.openDatePickerIfNotOpened(datePicker) })
@@ -47,47 +51,20 @@ class AddTimeRegActivity : BaseActivity("Zeiterfassung") {
         }
     }
 
-    private fun onDatePicked(id: Int) =  DatePickerDialog.OnDateSetListener { view, year, month, day ->
-        val cal = Calendar.getInstance()
-        cal.set(year, month, day)
-        val time = SimpleDateFormat("dd.MM.yyyy").format(cal.time)
-        findViewById<EditText>(id).setText(time)
+    private fun onDatePicked(id: Int) = DatePickerDialog.OnDateSetListener { view, year, month, day ->
+        Log.d("AddTimeReg", "Year: $year, Month: $month, day: $day")
+        val date = LocalDate(year, month + 1, day)
+        Log.d("AddTimeReg", "LocalDate: $date")
+        findViewById<EditText>(id).setText(date.toString("dd.MM.yyyy"))
     }
 
     private fun onSaveClicked() {
-        val dateText = (findViewById<EditText>(R.id.addtimereg_date) as EditText).text.toString()
-        if (dateText.isNullOrBlank()) {
-            Toast.makeText(this, "Datum nicht valide", Toast.LENGTH_SHORT).show()
-            return
+        if (this.timereg.validate()) {
+            AsyncTask.execute({
+                AppDatabase.get().timeregDao().insert(this.timereg)
+                startActivity(Intent(this, TimeRegsActivity::class.java))
+            })
         }
-        val date = stringToDate(dateText)
-
-        val project = (findViewById<EditText>(R.id.addtimereg_project) as EditText).text.toString()
-        if (project.isNullOrBlank()) {
-            Toast.makeText(this, "Projekt nicht valide", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val timeText = (findViewById<EditText>(R.id.addtimereg_time) as EditText).text.toString()
-        if (timeText.isNullOrBlank()) {
-            Toast.makeText(this, "Zeit nicht valide", Toast.LENGTH_SHORT).show()
-            return
-        }
-        val time = timeText.toDouble()
-
-        var remarks = (findViewById<EditText>(R.id.addtimereg_remarks) as EditText).text.toString()
-        if (remarks.isNullOrBlank()) remarks = ""
-
-        val timereg = TimeRegistration(date,  project,  time, remarks)
-        AsyncTask.execute({
-            AppDatabase.get().timeregDao().insert(timereg)
-            startActivity(Intent(this, TimeRegsActivity::class.java))
-        })
-    }
-
-    private fun stringToDate(date: String): Date {
-        val format = SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY)
-        return format.parse(date)
     }
 
 }

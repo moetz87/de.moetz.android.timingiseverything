@@ -19,6 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -37,4 +40,10 @@ dependencies {
     // Room
     implementation "android.arch.persistence.room:runtime:1.0.0"
     kapt "android.arch.persistence.room:compiler:1.0.0"
+
+    // Databinding
+    kapt "com.android.databinding:compiler:$android_plugin_version"
+
+    // Joda Time
+    compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
 }

@@ -1,18 +1,18 @@
 package de.moetz.android.timingiseverything.database
 
 import android.arch.persistence.room.TypeConverter
-import java.util.*
+import org.joda.time.LocalDate
 
 class Converters {
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return if (value == null) null else Date(value)
+    fun fromTimestamp(value: String?): LocalDate? {
+        return if (value == null) null else LocalDate.parse(value)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time
+    fun dateToTimestamp(date: LocalDate?): String? {
+        return date?.toString()
     }
 
 }

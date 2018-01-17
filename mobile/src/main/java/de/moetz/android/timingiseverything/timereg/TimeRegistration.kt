@@ -1,18 +1,43 @@
 package de.moetz.android.timingiseverything.timereg
 
 import android.arch.persistence.room.*
-import java.util.*
+import android.widget.Toast
+import de.moetz.android.timingiseverything.ApplicationContext
+import org.joda.time.LocalDate
 
 
 @Entity
-data class TimeRegistration(val date: Date,
-                            val project: String,
-                            val time: Double,
-                            val remarks: String) {
+data class TimeRegistration(var date: LocalDate,
+                            var project: String,
+                            var time: Double,
+                            var remarks: String) {
+
+    companion object {
+        fun default(): TimeRegistration {
+            return TimeRegistration(LocalDate.now(), "", 0.0, "")
+        }
+    }
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var acronym: String = "MOE"
+
+    fun validate(): Boolean {
+        var valid = true
+        if (project.isNullOrBlank()) {
+            message("Projekt ist nicht valide")
+            valid = false
+        }
+        if (time < 0) {
+            message("Zeit ist nicht valide")
+            valid = false
+        }
+        return valid
+    }
+
+    private fun message(msg: String) {
+        Toast.makeText(ApplicationContext.context, msg, Toast.LENGTH_SHORT).show()
+    }
 
 }
 
@@ -39,3 +64,5 @@ interface TimeRegistrationDao {
     fun delete()
 
 }
+
+

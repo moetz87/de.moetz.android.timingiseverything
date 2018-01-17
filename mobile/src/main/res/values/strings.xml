@@ -7,4 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_time_reg">TimeRegActivity</string>
     <string name="title_activity_base">BaseActivity</string>
+
+    <string name="date_format">dd.MM.yyyy</string>
 </resources>

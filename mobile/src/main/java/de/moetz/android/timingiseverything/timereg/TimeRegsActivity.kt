@@ -9,12 +9,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.BaseAdapter
+import android.widget.ListView
+import android.widget.TextView
 import de.moetz.android.timingiseverything.BaseActivity
 import de.moetz.android.timingiseverything.R
 import de.moetz.android.timingiseverything.database.AppDatabase
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class TimeRegsActivity : BaseActivity("Zeitenverwaltung") {
@@ -72,15 +73,10 @@ class TimeRegsActivity : BaseActivity("Zeitenverwaltung") {
         val remarks: TextView = row.findViewById(R.id.timereglist_remarks)
 
         init {
-            this.date.text = formatDate(timereg.date)
+            this.date.text = timereg.date.toString("dd.MM.yyyy")
             this.project.text = timereg.project
             this.time.text = "${timereg.time}"
             this.remarks.text = timereg.remarks
-        }
-
-        private fun formatDate(date: Date): String {
-            val formatter = SimpleDateFormat("dd.MM.YYYY")
-            return formatter.format(date)
         }
 
     }
