@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context="de.moetz.android.timingiseverything.timereg.TimeRegsActivity">
 
-    <ListView
-        android:id="@+id/timeregs_list"
+    <data>
+
+        <import type="de.moetz.android.timingiseverything.view.ListViewItem" />
+
+        <variable
+            name="infos"
+            type="android.databinding.ObservableArrayList&lt;ListViewItem&gt;" />
+
+        <variable
+            name="row"
+            type="java.lang.String" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/timeregs_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_timereg_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
-        app:fabSize="normal"
-        app:layout_anchor="@id/timeregs_list"
-        app:layout_anchorGravity="bottom|right|end" />
+        <ListView
+            android:id="@+id/timeregs_list"
+            entries="@{infos}"
+            layout="@{@layout/timeregs_row}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_timereg_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add"
+            app:fabSize="normal"
+            app:layout_anchor="@id/timeregs_list"
+            app:layout_anchorGravity="bottom|right|end" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

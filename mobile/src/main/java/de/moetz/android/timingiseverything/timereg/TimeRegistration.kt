@@ -1,8 +1,7 @@
 package de.moetz.android.timingiseverything.timereg
 
 import android.arch.persistence.room.*
-import android.widget.Toast
-import de.moetz.android.timingiseverything.ApplicationContext
+import de.moetz.android.timingiseverything.view.ListViewItem
 import org.joda.time.LocalDate
 
 
@@ -10,7 +9,7 @@ import org.joda.time.LocalDate
 data class TimeRegistration(var date: LocalDate,
                             var project: String,
                             var time: Double,
-                            var remarks: String) {
+                            var remarks: String) : ListViewItem() {
 
     companion object {
         fun default(): TimeRegistration {
@@ -22,21 +21,21 @@ data class TimeRegistration(var date: LocalDate,
     var id: Int = 0
     var acronym: String = "MOE"
 
-    fun validate(): Boolean {
+    override fun validate(): Boolean {
         var valid = true
         if (project.isNullOrBlank()) {
-            message("Projekt ist nicht valide")
+            showMessage("Projekt ist nicht valide")
             valid = false
         }
         if (time < 0) {
-            message("Zeit ist nicht valide")
+            showMessage("Zeit ist nicht valide")
             valid = false
         }
         return valid
     }
 
-    private fun message(msg: String) {
-        Toast.makeText(ApplicationContext.context, msg, Toast.LENGTH_SHORT).show()
+    override fun getId(): Long {
+        return this.id.toLong()
     }
 
 }
@@ -64,5 +63,3 @@ interface TimeRegistrationDao {
     fun delete()
 
 }
-
-

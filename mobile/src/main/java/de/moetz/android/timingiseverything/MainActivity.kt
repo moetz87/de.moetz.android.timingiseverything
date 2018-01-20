@@ -1,5 +1,6 @@
 package de.moetz.android.timingiseverything
 
+import android.databinding.ViewDataBinding
 import android.os.Bundle
 
 class MainActivity : BaseActivity("Timing is Everything") {
@@ -8,5 +9,7 @@ class MainActivity : BaseActivity("Timing is Everything") {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
     }
+
+    override fun bindData(binding: ViewDataBinding) {}
 
 }

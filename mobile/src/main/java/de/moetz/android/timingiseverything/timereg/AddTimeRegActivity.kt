@@ -2,33 +2,34 @@ package de.moetz.android.timingiseverything.timereg
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
 import android.text.InputType
 import android.util.Log
 import android.widget.EditText
 import de.moetz.android.timingiseverything.BR
+import de.moetz.android.timingiseverything.BaseActivity
 import de.moetz.android.timingiseverything.R
 import de.moetz.android.timingiseverything.database.AppDatabase
-import de.moetz.android.timingiseverything.databinding.TimeregAddBinding
 import org.joda.time.LocalDate
 
 
-class AddTimeRegActivity : AppCompatActivity() {
+class AddTimeRegActivity : BaseActivity("Zeiterfassung") {
 
     val timereg = TimeRegistration.default()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: TimeregAddBinding = DataBindingUtil.setContentView(this, R.layout.timereg_add)
-        binding.setVariable(BR.timereg, timereg)
-        binding.executePendingBindings()
+        this.setContentView(R.layout.timereg_add)
 
         initDateField(R.id.addtimereg_date)
         findViewById<FloatingActionButton>(R.id.addtimereg_savebutton).setOnClickListener { onSaveClicked() }
+    }
+
+    override fun bindData(binding: ViewDataBinding) {
+        binding.setVariable(BR.addtimereg, this.timereg)
     }
 
     private fun initDateField(id: Int) {
