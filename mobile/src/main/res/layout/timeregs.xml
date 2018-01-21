@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="de.moetz.android.timingiseverything.view.ListViewItem" />
+        <import type="de.moetz.android.timingiseverything.view.list.ListViewItem" />
 
         <variable
             name="infos"

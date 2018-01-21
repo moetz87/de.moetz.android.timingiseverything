@@ -1,9 +1,9 @@
-package de.moetz.android.timingiseverything.view
+package de.moetz.android.timingiseverything.view.model
 
 import android.widget.Toast
 import de.moetz.android.timingiseverything.ApplicationContext
 
-abstract class ViewElement {
+abstract class ViewModel {
 
     abstract fun validate(): Boolean
 

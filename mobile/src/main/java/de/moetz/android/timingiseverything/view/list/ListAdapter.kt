@@ -1,4 +1,4 @@
-package de.moetz.android.timingiseverything.view;
+package de.moetz.android.timingiseverything.view.list;
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding

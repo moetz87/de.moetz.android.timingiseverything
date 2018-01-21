@@ -1,7 +1,7 @@
 package de.moetz.android.timingiseverything.timereg
 
 import android.arch.persistence.room.*
-import de.moetz.android.timingiseverything.view.ListViewItem
+import de.moetz.android.timingiseverything.view.list.ListViewItem
 import org.joda.time.LocalDate
 
 

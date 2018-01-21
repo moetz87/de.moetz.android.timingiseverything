@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import de.moetz.android.timingiseverything.timereg.AddTimeRegActivity
+import de.moetz.android.timingiseverything.runningproject.RunningProjectActivity
 import de.moetz.android.timingiseverything.timereg.TimeRegsActivity
 import kotlinx.android.synthetic.main.base.*
 import kotlinx.android.synthetic.main.base_navigation.*
@@ -67,7 +68,7 @@ abstract class BaseActivity(private val toolbarText: String) : AppCompatActivity
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, RunningProjectActivity::class.java))
             }
             R.id.nav_timereg_show -> {
                 startActivity(Intent(this, TimeRegsActivity::class.java))

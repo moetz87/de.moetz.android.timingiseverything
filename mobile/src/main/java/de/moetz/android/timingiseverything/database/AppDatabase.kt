@@ -4,11 +4,13 @@ import android.arch.persistence.db.SupportSQLiteOpenHelper
 import android.arch.persistence.room.*
 import android.util.Log
 import de.moetz.android.timingiseverything.ApplicationContext
+import de.moetz.android.timingiseverything.runningproject.RunningProject
+import de.moetz.android.timingiseverything.runningproject.RunningProjectDao
 import de.moetz.android.timingiseverything.timereg.TimeRegistration
 import de.moetz.android.timingiseverything.timereg.TimeRegistrationDao
 
 
-@Database(entities = arrayOf(TimeRegistration::class), version = 13)
+@Database(entities = arrayOf(TimeRegistration::class, RunningProject::class), version = 14)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -30,6 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun timeregDao(): TimeRegistrationDao
 
+    abstract fun runningProjectDao(): RunningProjectDao
 
     override fun createOpenHelper(config: DatabaseConfiguration?): SupportSQLiteOpenHelper {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
