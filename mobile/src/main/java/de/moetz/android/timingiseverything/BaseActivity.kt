@@ -12,8 +12,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import de.moetz.android.timingiseverything.timereg.AddTimeRegActivity
+import de.moetz.android.timingiseverything.project.AddProjectActivity
 import de.moetz.android.timingiseverything.runningproject.RunningProjectActivity
+import de.moetz.android.timingiseverything.timereg.AddTimeRegActivity
 import de.moetz.android.timingiseverything.timereg.TimeRegsActivity
 import kotlinx.android.synthetic.main.base.*
 import kotlinx.android.synthetic.main.base_navigation.*
@@ -67,15 +68,10 @@ abstract class BaseActivity(private val toolbarText: String) : AppCompatActivity
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_home -> {
-                startActivity(Intent(this, RunningProjectActivity::class.java))
-            }
-            R.id.nav_timereg_show -> {
-                startActivity(Intent(this, TimeRegsActivity::class.java))
-            }
-            R.id.nav_timereg_add -> {
-                startActivity(Intent(this, AddTimeRegActivity::class.java))
-            }
+            R.id.nav_home -> startActivity(Intent(this, RunningProjectActivity::class.java))
+            R.id.nav_timereg_show -> startActivity(Intent(this, TimeRegsActivity::class.java))
+            R.id.nav_timereg_add -> startActivity(Intent(this, AddTimeRegActivity::class.java))
+            R.id.nav_projects_add -> startActivity(Intent(this, AddProjectActivity::class.java))
         }
         root_view.closeDrawer(GravityCompat.START)
         return true
