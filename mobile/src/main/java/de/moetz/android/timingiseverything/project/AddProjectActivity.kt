@@ -29,7 +29,7 @@ class AddProjectActivity : BaseActivity("Projekt hinzufügen") {
         if (this.project.validate()) {
             AsyncTask.execute({
                 AppDatabase.get().projectDao().insert(this.project)
-                startActivity(Intent(this, RunningProjectActivity::class.java))
+                startActivity(Intent(this, ProjectActivity::class.java))
             })
         }
     }

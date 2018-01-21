@@ -25,7 +25,8 @@
             android:name=".timereg.TimeRegsActivity"
             android:label="@string/title_activity_time_reg" />
         <activity android:name=".timereg.AddTimeRegActivity" />
-        <activity android:name=".project.AddProjectActivity"></activity>
+        <activity android:name=".project.AddProjectActivity" />
+        <activity android:name=".project.ProjectActivity"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import de.moetz.android.timingiseverything.project.AddProjectActivity
+import de.moetz.android.timingiseverything.project.ProjectActivity
 import de.moetz.android.timingiseverything.runningproject.RunningProjectActivity
 import de.moetz.android.timingiseverything.timereg.AddTimeRegActivity
 import de.moetz.android.timingiseverything.timereg.TimeRegsActivity
@@ -72,6 +73,7 @@ abstract class BaseActivity(private val toolbarText: String) : AppCompatActivity
             R.id.nav_timereg_show -> startActivity(Intent(this, TimeRegsActivity::class.java))
             R.id.nav_timereg_add -> startActivity(Intent(this, AddTimeRegActivity::class.java))
             R.id.nav_projects_add -> startActivity(Intent(this, AddProjectActivity::class.java))
+            R.id.nav_projects_show -> startActivity(Intent(this, ProjectActivity::class.java))
         }
         root_view.closeDrawer(GravityCompat.START)
         return true

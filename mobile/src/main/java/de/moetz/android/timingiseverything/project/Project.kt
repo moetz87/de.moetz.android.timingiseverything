@@ -1,11 +1,11 @@
 package de.moetz.android.timingiseverything.project
 
 import android.arch.persistence.room.*
-import de.moetz.android.timingiseverything.view.model.ViewModel
+import de.moetz.android.timingiseverything.view.list.ListViewItem
 
 @Entity
 data class Project(var name: String,
-                   var displayableName: String) : ViewModel() {
+                   var displayableName: String) : ListViewItem() {
 
     companion object {
         fun default() = Project("", "")
@@ -25,6 +25,10 @@ data class Project(var name: String,
             valid = false;
         }
         return valid
+    }
+
+    override fun getId(): Long {
+        return this.id.toLong()
     }
 
 }

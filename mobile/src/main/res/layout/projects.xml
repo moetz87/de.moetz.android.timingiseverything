@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.moetz.android.timingiseverything.timereg.TimeRegsActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="de.moetz.android.timingiseverything.view.list.ListViewItem" />
 
         <variable
-            name="infos"
+            name="projects"
             type="android.databinding.ObservableArrayList&lt;ListViewItem&gt;" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/timeregs_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context="de.moetz.android.timingiseverything.project.ProjectActivity">
 
         <ListView
-            android:id="@+id/timeregs_list"
-            entries="@{infos}"
-            layout="@{@layout/timeregs_row}"
+            android:id="@+id/projects_list"
+            entries="@{projects}"
+            layout="@{@layout/projects_row}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -30,10 +29,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:onClick="onAddTimeRegClick"
+            android:onClick="onAddProjectClick"
             android:src="@drawable/ic_add"
             app:fabSize="normal"
-            app:layout_anchor="@id/timeregs_list"
+            app:layout_anchor="@id/projects_list"
             app:layout_anchorGravity="bottom|right|end" />
 
     </android.support.design.widget.CoordinatorLayout>
