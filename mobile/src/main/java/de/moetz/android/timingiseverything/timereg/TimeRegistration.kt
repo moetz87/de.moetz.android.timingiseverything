@@ -21,19 +21,6 @@ data class TimeRegistration(var date: LocalDate,
     var id: Int = 0
     var acronym: String = "MOE"
 
-    override fun validate(): Boolean {
-        var valid = true
-        if (project.isNullOrBlank()) {
-            showMessage("Projekt ist nicht valide")
-            valid = false
-        }
-        if (time < 0) {
-            showMessage("Zeit ist nicht valide")
-            valid = false
-        }
-        return valid
-    }
-
     override fun getId(): Long {
         return this.id.toLong()
     }

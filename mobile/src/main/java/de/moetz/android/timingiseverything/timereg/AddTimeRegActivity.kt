@@ -5,9 +5,9 @@ import android.content.Intent
 import android.databinding.ViewDataBinding
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.text.InputType
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import de.moetz.android.timingiseverything.BR
 import de.moetz.android.timingiseverything.BaseActivity
@@ -18,18 +18,17 @@ import org.joda.time.LocalDate
 
 class AddTimeRegActivity : BaseActivity("Zeiterfassung") {
 
-    val timereg = TimeRegistration.default()
+    var model = AddTimeRegActivityModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.setContentView(R.layout.timereg_add)
 
         initDateField(R.id.addtimereg_date)
-        findViewById<FloatingActionButton>(R.id.addtimereg_savebutton).setOnClickListener { onSaveClicked() }
     }
 
     override fun bindData(binding: ViewDataBinding) {
-        binding.setVariable(BR.addtimereg, this.timereg)
+        binding.setVariable(BR.model, this.model)
     }
 
     private fun initDateField(id: Int) {
@@ -59,10 +58,10 @@ class AddTimeRegActivity : BaseActivity("Zeiterfassung") {
         findViewById<EditText>(id).setText(date.toString("dd.MM.yyyy"))
     }
 
-    private fun onSaveClicked() {
-        if (this.timereg.validate()) {
+    fun onSaveClicked(view: View) {
+        if (this.model.validateTimereg()) {
             AsyncTask.execute({
-                AppDatabase.get().timeregDao().insert(this.timereg)
+                AppDatabase.get().timeregDao().insert(this.model.timereg!!)
                 startActivity(Intent(this, TimeRegsActivity::class.java))
             })
         }

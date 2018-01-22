@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import de.moetz.android.timingiseverything.ApplicationContext
+
 
 class ListAdapter(
         private val rowLayoutId: Int,
         private val bindingVariableId: Int,
-        private val elements: List<ListViewItem>) : BaseAdapter() {
-
-    private val inflator: LayoutInflater = LayoutInflater.from(ApplicationContext.context)
+        val elements: List<ListViewItem>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return this.elements.size
@@ -28,7 +26,8 @@ class ListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
-        val binding: ViewDataBinding = DataBindingUtil.inflate(this.inflator, this.rowLayoutId, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: ViewDataBinding = DataBindingUtil.inflate(inflater, this.rowLayoutId, parent, false)
         binding.setVariable(this.bindingVariableId, this.elements[position])
         return binding.root
     }

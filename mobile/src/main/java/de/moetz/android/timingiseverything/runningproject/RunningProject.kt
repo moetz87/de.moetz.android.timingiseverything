@@ -1,6 +1,7 @@
 package de.moetz.android.timingiseverything.runningproject
 
 import android.arch.persistence.room.*
+import de.moetz.android.timingiseverything.project.Project
 import org.joda.time.LocalDateTime
 
 @Entity

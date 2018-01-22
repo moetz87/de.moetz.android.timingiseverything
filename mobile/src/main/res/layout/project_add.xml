@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="addproject"
-            type="de.moetz.android.timingiseverything.project.Project" />
+            name="model"
+            type="de.moetz.android.timingiseverything.project.AddProjectActivityModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={addproject.name}" />
+                    android:text="@={model.project.name}" />
 
             </LinearLayout>
 
@@ -57,22 +57,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={addproject.displayableName}" />
+                    android:text="@={model.project.displayableName}" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
-            app:fabSize="normal"
-            app:layout_anchor="@id/addproject_fields"
-            app:layout_anchorGravity="bottom|right|end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:onClick="onAddProjectClick"
             android:src="@drawable/ic_add"
-            android:onClick="onAddProjectClick"/>
+            app:fabSize="normal"
+            app:layout_anchor="@id/addproject_fields"
+            app:layout_anchorGravity="bottom|right|end" />
 
     </android.support.design.widget.CoordinatorLayout>
 

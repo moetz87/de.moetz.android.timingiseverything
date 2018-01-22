@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="addtimereg"
-            type="de.moetz.android.timingiseverything.timereg.TimeRegistration" />
+            name="model"
+            type="de.moetz.android.timingiseverything.timereg.AddTimeRegActivityModel" />
     </data>
 
 
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="@={addtimereg.date}" />
+                    android:text="@={model.timereg.date}" />
 
             </LinearLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:text="@={addtimereg.project}" />
+                    android:text="@={model.timereg.project}" />
 
             </LinearLayout>
 
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:text="@={addtimereg.time}" />
+                    android:text="@={model.timereg.time}" />
 
             </LinearLayout>
 
@@ -103,18 +103,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:text="@={addtimereg.remarks}" />
+                    android:text="@={model.timereg.remarks}" />
 
             </LinearLayout>
 
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/addtimereg_savebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:onClick="onSaveClicked"
             android:src="@drawable/ic_add"
             app:fabSize="normal"
             app:layout_anchor="@id/addtimereg_fields"

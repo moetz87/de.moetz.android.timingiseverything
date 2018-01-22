@@ -5,11 +5,9 @@
 
     <data>
 
-        <import type="de.moetz.android.timingiseverything.view.list.ListViewItem" />
-
         <variable
-            name="projects"
-            type="android.databinding.ObservableArrayList&lt;ListViewItem&gt;" />
+            name="model"
+            type="de.moetz.android.timingiseverything.project.ProjectActivityModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -19,7 +17,7 @@
 
         <ListView
             android:id="@+id/projects_list"
-            entries="@{projects}"
+            entries="@{model.projects}"
             layout="@{@layout/projects_row}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

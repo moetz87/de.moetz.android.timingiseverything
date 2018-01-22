@@ -1,8 +1,6 @@
 package de.moetz.android.timingiseverything.view.list
 
-import de.moetz.android.timingiseverything.view.model.ViewModel
-
-abstract class ListViewItem : ViewModel() {
+abstract class ListViewItem {
 
     abstract fun getId(): Long
 

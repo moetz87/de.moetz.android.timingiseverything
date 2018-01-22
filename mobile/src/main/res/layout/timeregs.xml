@@ -6,11 +6,10 @@
 
     <data>
 
-        <import type="de.moetz.android.timingiseverything.view.list.ListViewItem" />
-
         <variable
-            name="infos"
-            type="android.databinding.ObservableArrayList&lt;ListViewItem&gt;" />
+            name="model"
+            type="de.moetz.android.timingiseverything.timereg.TimeRegsActivityModel" />
+
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -20,12 +19,13 @@
 
         <ListView
             android:id="@+id/timeregs_list"
-            entries="@{infos}"
+            entries="@{model.timeregs}"
             layout="@{@layout/timeregs_row}"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_timereg_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

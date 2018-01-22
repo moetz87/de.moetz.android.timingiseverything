@@ -9,11 +9,10 @@ import de.moetz.android.timingiseverything.BR
 import de.moetz.android.timingiseverything.BaseActivity
 import de.moetz.android.timingiseverything.R
 import de.moetz.android.timingiseverything.database.AppDatabase
-import de.moetz.android.timingiseverything.runningproject.RunningProjectActivity
 
 class AddProjectActivity : BaseActivity("Projekt hinzufügen") {
 
-    var project = Project.default()
+    var model = AddProjectActivityModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +20,14 @@ class AddProjectActivity : BaseActivity("Projekt hinzufügen") {
     }
 
     override fun bindData(binding: ViewDataBinding) {
-        binding.setVariable(BR.addproject, this.project)
+        binding.setVariable(BR.model, this.model)
 
     }
 
     fun onAddProjectClick(view: View) {
-        if (this.project.validate()) {
+        if (this.model.validateProject()) {
             AsyncTask.execute({
-                AppDatabase.get().projectDao().insert(this.project)
+                AppDatabase.get().projectDao().insert(this.model.project!!)
                 startActivity(Intent(this, ProjectActivity::class.java))
             })
         }

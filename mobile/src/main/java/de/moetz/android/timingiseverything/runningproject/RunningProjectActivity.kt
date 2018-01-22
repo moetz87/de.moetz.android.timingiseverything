@@ -3,56 +3,43 @@ package de.moetz.android.timingiseverything.runningproject
 import android.databinding.ViewDataBinding
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import de.moetz.android.timingiseverything.BR
 import de.moetz.android.timingiseverything.BaseActivity
 import de.moetz.android.timingiseverything.R
 import de.moetz.android.timingiseverything.database.AppDatabase
 import de.moetz.android.timingiseverything.timereg.TimeRegistration
-import de.moetz.android.timingiseverything.view.model.ObjectHolder
-import de.moetz.android.timingiseverything.view.model.Observable
-import de.moetz.android.timingiseverything.view.model.StringHolder
 import org.joda.time.LocalDateTime
 import org.joda.time.Period
 import java.util.*
 
 class RunningProjectActivity : BaseActivity("Laufendes Projekt") {
 
-    private var runningProject = Observable<RunningProject>()
-    private var project = StringHolder("")
+    var model = RunningProjectActivityModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.runningproject)
-
-        AsyncTask.execute({
-            this.runningProject.set(AppDatabase.get().runningProjectDao().read())
-            // this.runningProject.set(RunningProject("QES"))
-        })
     }
 
     override fun bindData(binding: ViewDataBinding) {
-        binding.setVariable(BR.runningproject, this.runningProject)
-        binding.setVariable(BR.project, this.project)
+        binding.setVariable(BR.model, this.model)
     }
 
     fun onStartClick(view: View) {
-        Log.d("RunningProjectActivity", "project: ${project}")
-        if (this.runningProject.isSet()) {
-            saveAsTimeRegistration(this.runningProject.get()!!)
+        if (this.model.runningProject != null) {
+            saveAsTimeRegistration(this.model.runningProject!!)
         }
-        val newRunningProject = RunningProject(this.project.value)
-        this.runningProject.set(newRunningProject)
+        val newRunningProject = RunningProject(this.model.selectedProject!!.name)
+        this.model.runningProject = newRunningProject
         AsyncTask.execute({
             AppDatabase.get().runningProjectDao().save(newRunningProject)
         })
     }
 
     fun onStopClick(view: View) {
-        Log.d("RunningProjectActivity", "project: ${project}")
-        saveAsTimeRegistration(this.runningProject.get()!!)
-        this.runningProject.unset()
+        saveAsTimeRegistration(this.model.runningProject!!)
+        this.model.runningProject = null
         AsyncTask.execute({
             AppDatabase.get().runningProjectDao().delete()
         })

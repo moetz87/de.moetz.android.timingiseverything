@@ -14,19 +14,6 @@ data class Project(var name: String,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
-    override fun validate(): Boolean {
-        var valid = true
-        if (name.isNullOrBlank()) {
-            showMessage("Name ist nicht valide")
-            valid = false
-        }
-        if (displayableName.isNullOrBlank()) {
-            showMessage("DisplayableName ist nicht valide")
-            valid = false;
-        }
-        return valid
-    }
-
     override fun getId(): Long {
         return this.id.toLong()
     }
