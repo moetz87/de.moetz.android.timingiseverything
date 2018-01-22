@@ -12,7 +12,7 @@ import de.moetz.android.timingiseverything.timereg.TimeRegistration
 import de.moetz.android.timingiseverything.timereg.TimeRegistrationDao
 
 
-@Database(entities = arrayOf(TimeRegistration::class, RunningProject::class, Project::class), version = 16)
+@Database(entities = arrayOf(TimeRegistration::class, RunningProject::class, Project::class), version = 18)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

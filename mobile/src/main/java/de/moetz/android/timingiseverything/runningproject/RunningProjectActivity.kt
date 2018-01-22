@@ -30,7 +30,7 @@ class RunningProjectActivity : BaseActivity("Laufendes Projekt") {
         if (this.model.runningProject != null) {
             saveAsTimeRegistration(this.model.runningProject!!)
         }
-        val newRunningProject = RunningProject(this.model.selectedProject!!.name)
+        val newRunningProject = RunningProject(this.model.selectedProject!!)
         this.model.runningProject = newRunningProject
         AsyncTask.execute({
             AppDatabase.get().runningProjectDao().save(newRunningProject)

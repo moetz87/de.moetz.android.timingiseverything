@@ -4,14 +4,15 @@ import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.databinding.InverseBindingListener
 import android.databinding.ObservableArrayList
+import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.widget.*
 import de.moetz.android.timingiseverything.BR
+import de.moetz.android.timingiseverything.database.AppDatabase
 import de.moetz.android.timingiseverything.project.Project
 import de.moetz.android.timingiseverything.timereg.TimeRegistration
 import de.moetz.android.timingiseverything.view.list.ListAdapter
-import de.moetz.android.timingiseverything.view.list.ListViewItem
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
@@ -105,7 +106,7 @@ fun bindSpinnerData(view: Spinner, newSelected: Project?, selectedAttrChanged: I
         override fun onNothingSelected(parent: AdapterView<*>) {}
     }
     Log.d("BindingAdapters", "bindSpinnerData called. newSelected: $newSelected")
-    if (newSelected != null) {
+    if (newSelected != null && view.adapter != null) {
         val position = (view.adapter as ListAdapter).elements.indexOf(newSelected)
         view.setSelection(position)
     }
@@ -116,3 +117,23 @@ fun captureSelectedValue(view: Spinner): Project {
     Log.d("BindingAdapters", "captureSelectedValue called.")
     return view.selectedItem as Project
 }
+
+@BindingAdapter("android:text")
+fun setProjectToTextView(view: TextView, value: Project?) {
+    view.text = value?.displayableName
+}
+
+@InverseBindingAdapter(attribute = "android:text")
+fun getProjectFromTextView(view: TextView): Project? {
+    val displayableName = view.text.toString()
+    val asyncTask = object : AsyncTask<Void, Void, List<Project>>() {
+        override fun doInBackground(vararg params: Void?): List<Project> {
+            return AppDatabase.get().projectDao().get()
+        }
+    }
+    return asyncTask.get().filter { p -> p.displayableName == displayableName }.firstOrNull()
+}
+
+
+
+

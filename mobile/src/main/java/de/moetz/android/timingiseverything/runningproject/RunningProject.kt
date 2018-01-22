@@ -5,11 +5,12 @@ import de.moetz.android.timingiseverything.project.Project
 import org.joda.time.LocalDateTime
 
 @Entity
-class RunningProject(project: String) {
+class RunningProject(project: Project) {
 
     @PrimaryKey
     var id: Int = 1
     var start: LocalDateTime = LocalDateTime()
+    @Embedded(prefix = "project")
     var project = project
 
 }

@@ -1,19 +1,20 @@
 package de.moetz.android.timingiseverything.timereg
 
 import android.arch.persistence.room.*
+import de.moetz.android.timingiseverything.project.Project
 import de.moetz.android.timingiseverything.view.list.ListViewItem
 import org.joda.time.LocalDate
 
 
 @Entity
 data class TimeRegistration(var date: LocalDate,
-                            var project: String,
+                            @Embedded(prefix = "project") var project: Project,
                             var time: Double,
                             var remarks: String) : ListViewItem() {
 
     companion object {
         fun default(): TimeRegistration {
-            return TimeRegistration(LocalDate.now(), "", 0.0, "")
+            return TimeRegistration(LocalDate.now(), Project.default(), 0.0, "")
         }
     }
 

@@ -56,12 +56,12 @@
                     android:text="Projekt:"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/addtimereg_project"
+                <Spinner
+                    entries="@{model.projects}"
+                    layout="@{@layout/projects_spinneritem}"
+                    selected="@={model.timereg.project}"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:text="@={model.timereg.project}" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
